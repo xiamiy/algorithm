@@ -1,0 +1,42 @@
+//最大回文子串
+
+public static int manacher(String string){
+		int max = 0;
+		if(null == string || string.trim().length() == 0){
+			return max;
+		}
+		
+		char[] charsOfString = string.toCharArray();
+		char[] newChars = new char[charsOfString.length * 2 + 3];
+
+		//将奇偶不同size的字串转化为器奇数长度字串
+		int pos = 0;
+		newChars[pos++] = '$';
+		newChars[pos++] = '#';
+		for(int i = 0; i < charsOfString.length; i++){
+			newChars[pos++] = charsOfString[i];
+			newChars[pos++] = '#';
+		}
+		newChars[pos] = '$';
+		
+		for(int i = 1; i < newChars.length - 1; i++){
+			System.out.print(newChars[i] + " ");
+		}
+		System.out.println();
+		
+		int range = 0;
+		for(int i = 1; i < newChars.length - 1; i++){
+			while(newChars[i - range] != '$' && newChars[i + range] != '$'){
+				if(newChars[i - range] != newChars[i + range]){
+					break;
+				}
+				range++;
+			}
+			if(range > max){
+				max = range;
+			}
+			System.out.print(range + " ");
+			range = 0;
+		}
+		return max;
+	}

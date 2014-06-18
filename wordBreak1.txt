@@ -1,0 +1,21 @@
+//µ¥´Ê·Ö¸î
+
+public static boolean wordBreak(String string, String[] dict, int start) {
+		if (null == string || null == dict || string.length() == 0 || dict.length == 0) {
+			return false;
+		}
+
+		for (String d : dict) {
+			int end = d.length() + start;
+			if(end > string.length()){
+				continue;
+			}
+
+			if (string.substring(start, end).equals(d)) {
+				if (wordBreak(string, dict, end)) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
